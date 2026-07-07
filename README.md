@@ -6,6 +6,7 @@ Reviews pasted code or uploaded files the way a senior engineer would leave comm
 
 ```bash
 cd backend
+
 pip install -r requirements.txt
 
 python app.py
