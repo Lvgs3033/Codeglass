@@ -2,7 +2,7 @@
 
 Reviews pasted code or uploaded files the way a senior engineer would leave comments: bugs, security issues, and improvement suggestions, ranked by severity — combining local static analysis with an optional LLM pass.
 
-Live Code: https://codeglass.onrender.com/
+**Live Code:** https://codeglass.onrender.com/
 
 ## Setup
 
