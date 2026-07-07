@@ -1,8 +1,6 @@
 # Codeglass — AI Code Review Platform
 
-Reviews pasted code or uploaded files the way a senior engineer would leave PR
-comments: bugs, security issues, and improvement suggestions, ranked by
-severity — combining local static analysis with an optional LLM pass.
+Reviews pasted code or uploaded files the way a senior engineer would leave comments: bugs, security issues, and improvement suggestions, ranked by severity — combining local static analysis with an optional LLM pass.
 
 ## Setup
 
