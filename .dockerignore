@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.git
+.gitignore
+*.zip
+.env
+
+# Ignore virtual environment
+venv/
+
+# Ignore Example folder
+Example/

@@ -1,0 +1,6 @@
+Flask==3.0.3
+flask-cors==4.0.1
+bandit==1.7.9
+pylint==3.2.6
+google-generativeai==0.7.2
+gunicorn==22.0.0

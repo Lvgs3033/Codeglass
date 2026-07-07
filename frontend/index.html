@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codeglass — AI Code Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanline" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">&lt;/&gt;</span>
+    <span class="brand-name">Codeglass</span>
+  </div>
+  <div class="topbar-status" id="llmStatus">
+    <span class="dot dot-info"></span> checking engine…
+  </div>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">static analysis + llm review, in one pass</p>
+  <h1>Every pull request has<br>a margin. This is yours.</h1>
+  <p class="hero-sub">Paste a diff or a file. Codeglass runs it through AST checks, security
+     scanners and an LLM reviewer, then hands the findings back the way a senior
+     engineer would leave them — inline, in the gutter, ranked by severity.</p>
+</section>
+
+<main class="workspace">
+
+  <section class="panel input-panel">
+    <div class="panel-head">
+      <h2>Submit code</h2>
+      <select id="languageSelect" aria-label="Language">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="typescript">TypeScript</option>
+        <option value="java">Java</option>
+        <option value="go">Go</option>
+        <option value="generic">Other / plain text</option>
+      </select>
+    </div>
+
+    <div class="editor-shell">
+      <div class="gutter" id="lineGutter">1</div>
+      <textarea id="codeInput" spellcheck="false" placeholder="Paste a function, file, or diff here…
+
+def get_user(request):
+    query = &quot;SELECT * FROM users WHERE id = &quot; + request.GET['id']
+    return db.execute(query)"></textarea>
+    </div>
+
+    <div class="input-footer">
+      <label class="toggle">
+        <input type="checkbox" id="useLlmToggle" checked>
+        <span>Include AI review</span>
+      </label>
+      <div class="footer-actions">
+        <input type="file" id="fileInput" accept=".py,.js,.ts,.jsx,.tsx,.java,.go,.txt,.diff" hidden>
+        <button class="btn-ghost" id="clearBtn" type="button">Clear</button>
+        <button class="btn-ghost" id="uploadBtn" type="button">Upload file</button>
+        <button class="btn-primary" id="analyzeBtn" type="button">Run review</button>
+      </div>
+    </div>
+    <p class="error-msg" id="errorMsg" hidden></p>
+  </section>
+
+  <section class="panel results-panel" id="resultsPanel">
+    <div class="empty-state" id="emptyState">
+      <span class="empty-glyph">◆</span>
+      <p>Findings will appear here once you run a review.</p>
+    </div>
+
+    <div class="results-body" id="resultsBody" hidden>
+      <div class="score-row">
+        <div class="score-gauge">
+          <svg viewBox="0 0 120 120" class="gauge-svg">
+            <circle cx="60" cy="60" r="52" class="gauge-track"/>
+            <circle cx="60" cy="60" r="52" class="gauge-fill" id="gaugeFill"/>
+          </svg>
+          <div class="gauge-label">
+            <span class="gauge-number" id="scoreNumber">--</span>
+            <span class="gauge-unit">/100</span>
+          </div>
+        </div>
+        <div class="severity-counts" id="severityCounts"></div>
+        <button class="btn-ghost btn-download" id="downloadPdfBtn" type="button">Download PDF</button>
+      </div>
+
+      <nav class="tabs" id="tabNav">
+        <button class="tab active" data-tab="all">All</button>
+        <button class="tab" data-tab="bug">Bugs</button>
+        <button class="tab" data-tab="security">Security</button>
+        <button class="tab" data-tab="suggestion">Suggestions</button>
+        <button class="tab" data-tab="ai">AI review</button>
+      </nav>
+
+      <div class="findings-list" id="findingsList"></div>
+
+      <div class="ai-panel" id="aiPanel" hidden>
+        <div class="ai-summary" id="aiSummary"></div>
+        <div class="ai-groups" id="aiGroups"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  <p>Codeglass runs static analysis locally. AI review calls the Gemini API only if a
+     <code>GEMINI_API_KEY</code> is configured on the server — no key ships with this app.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
